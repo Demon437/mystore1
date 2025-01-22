@@ -18,14 +18,15 @@ export default function Home({ searchQuery }) {
 
   useEffect(() => {
     axios
-      .get("https://mystore1backend.onrender.com")
-      .then((response) => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
+  .get('https://mystore1backend.onrender.com/products')
+  .then((response) => {
+    setProducts(response.data);
+    setFilteredProducts(response.data);
+  })
+  .catch((error) => {
+    console.error('Error fetching products:', error);
+  });
+
   }, []);
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function Home({ searchQuery }) {
         {filteredProducts.length === 0 ? (
           <p>No products found</p>
         ) : (
-          filteredProducts.map((product) => (
+          Array.isArray(filteredProducts) && filteredProducts.map((product) => (
             <MDBCol key={product._id} className="product-col">
               <MDBCard className="product-card">
                 <MDBCardImage
