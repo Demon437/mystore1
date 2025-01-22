@@ -16,9 +16,11 @@ export default function Home({ searchQuery }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
   useEffect(() => {
     axios
-      .get("http://localhost:4000/products")
+      .get(`${API_URL}/products`)
       .then((response) => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -71,7 +73,7 @@ export default function Home({ searchQuery }) {
                 <MDBCardImage
                   src={
                     product.pimage
-                      ? `http://localhost:4000${product.pimage}`
+                      ? `${API_URL}${product.pimage}`
                       : "https://via.placeholder.com/200"
                   }
                   alt={product.pname || "Product Image"}
@@ -86,7 +88,7 @@ export default function Home({ searchQuery }) {
                     ${product.pprice}
                   </MDBCardTitle>
                   <MDBCardText className="product-description">
-                    {product.pdesc}
+                    {product.pdesc || "No description available"}
                   </MDBCardText>
                   <MDBBtn
                     className="add-to-cart-btn"
