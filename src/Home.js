@@ -27,6 +27,8 @@ export default function Home({ searchQuery }) {
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
+        alert("There was an error fetching products. Please try again later.");
+
       });
   }, []);
 
