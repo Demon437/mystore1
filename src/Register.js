@@ -3,7 +3,7 @@ function Register() {
     const [password, setPassword] = useState('');
     const handleRegister = async () => {
       try {
-        const response = await axios.post('http://localhost:4000/register', {
+        const response = await axios.post('https://mystore1backend.onrender.com', {
           email,
           password,
         });
