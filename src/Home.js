@@ -18,7 +18,7 @@ export default function Home({ searchQuery }) {
 
   useEffect(() => {
     axios
-      .get("https://mystore1backend.onrender.com/api/login")
+      .get("http://localhost:4000/products")
       .then((response) => {
         setProducts(response.data);
         setFilteredProducts(response.data);
