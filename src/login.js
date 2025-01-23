@@ -10,6 +10,8 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    
+    console.log(process.env.REACT_APP_API_URL);
 
     try {
       const response = await axios.post('https://mystore1backend.onrender.com/api/login', {
