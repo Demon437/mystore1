@@ -2,6 +2,7 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mystore1-4usx.onrender.com",
   "dependencies": {
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
