@@ -11,33 +11,6 @@ function Upload() {
   const [pimage, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-
-  // Image validation function
-  const handleImageValidation = (file) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-    if (!allowedTypes.includes(file.type)) {
-      alert('Please upload an image file (JPEG, PNG, JPG).');
-      return false;
-    }
-    if (file.size > 2 * 1024 * 1024) { // 2MB limit
-      alert('File size should not exceed 2MB.');
-      return false;
-    }
-    return true;
-  };
-
-  // Handle file input change
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && handleImageValidation(file)) {
-      setImage(file);
-    } else {
-      e.target.value = ''; // Reset the file input if invalid
-    }
-  };
-
-  // Handle form submission
   const handleApi = async (e) => {
     e.preventDefault();
     console.log('Form Submitted:', { pname, pprice, pimage });
@@ -52,19 +25,20 @@ function Upload() {
     formData.append('pprice', pprice);
     formData.append('pimage', pimage);
 
-    console.log('FormData:', Array.from(formData.entries()));
+  console.log('FormData:', Array.from(formData.entries()));
+
 
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(`${API_URL}/api/products`, formData, {
+      const response = await axios.post('http://localhost:4000/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
       console.log('Response:', response.data);
-      alert('Product added successfully!');
+      alert(response.data);
       resetForm();
     } catch (error) {
       console.error('Error during API call:', error.response?.data || error.message);
@@ -74,7 +48,6 @@ function Upload() {
     }
   };
 
-  // Reset form fields
   const resetForm = () => {
     setName('');
     setPrice('');
@@ -133,7 +106,7 @@ function Upload() {
             <Form.Label>Product Image</Form.Label>
             <Form.Control
               type="file"
-              onChange={handleFileChange}
+              onChange={(e) => setImage(e.target.files[0])}
             />
           </Form.Group>
           <div className="text-center">
